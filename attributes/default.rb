@@ -26,5 +26,5 @@ default["conky"]["packages"] = %w(
 default["conky"]["zypper"]["enabled"] = true
 default["conky"]["zypper"]["alias"] = "server-monitoring"
 default["conky"]["zypper"]["title"] = "Server Monitoring"
-default["conky"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/monitoring/openSUSE_#{node["platform_version"]}/"
+default["conky"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/monitoring/openSUSE_#{node["platform_version"].to_i.to_s == node["platform_version"] ? "Tumbleweed" : node["platform_version"]}/"
 default["conky"]["zypper"]["key"] = "#{node["conky"]["zypper"]["repo"]}repodata/repomd.xml.key"

@@ -20,7 +20,6 @@
 default["conky"]["packages"] = %w(
   conky
   conky-imlib2
-  conky-vim
 )
 
 default["conky"]["zypper"]["enabled"] = true

@@ -22,8 +22,22 @@ default["conky"]["packages"] = %w(
   conky-imlib2
 )
 
-default["conky"]["zypper"]["enabled"] = true
-default["conky"]["zypper"]["alias"] = "server-monitoring"
-default["conky"]["zypper"]["title"] = "Server Monitoring"
-default["conky"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/monitoring/openSUSE_#{node["platform_version"].to_i.to_s == node["platform_version"] ? "Tumbleweed" : node["platform_version"]}/"
-default["conky"]["zypper"]["key"] = "#{node["conky"]["zypper"]["repo"]}repodata/repomd.xml.key"
+case node["platform_family"]
+when "suse"
+  repo = case node["platform_version"]
+  when /\A13\.\d+\z/
+    "openSUSE_#{node["platform_version"]}"
+  when /\A42\.\d+\z/
+    "openSUSE_Leap_#{node["platform_version"]}"
+  when /\A\d{8}\z/
+    "openSUSE_Tumbleweed"
+  else
+    raise "Unsupported SUSE version"
+  end
+
+  default["conky"]["zypper"]["enabled"] = true
+  default["conky"]["zypper"]["alias"] = "server-monitoring"
+  default["conky"]["zypper"]["title"] = "Server Monitoring"
+  default["conky"]["zypper"]["repo"] = "http://download.opensuse.org/repositories/server:/monitoring/#{repo}/"
+  default["conky"]["zypper"]["key"] = "#{node["conky"]["zypper"]["repo"]}repodata/repomd.xml.key"
+end

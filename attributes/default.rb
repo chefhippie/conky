@@ -19,7 +19,6 @@
 
 default["conky"]["packages"] = %w(
   conky
-  conky-imlib2
 )
 
 case node["platform_family"]
